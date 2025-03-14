@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yum 的个人网页(连入express后端编写的web服务器)</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link   rel="stylesheet" href="./css/webYumStyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+<h1>学号:2013365 姓名:颜铭 专业:智能科学与技术</h1>
+
+
+<div>
+    欢迎来到yum的个人网页
+</div>
+
+<br>
+<br>
+
+    <p style="background: cyan;font-style: italic;font-size: 15pt;
+    font-weight: bold;margin-left: 20%; margin-right: 20%;align-content:  center;border-width: 5pt;
+    border-style: solid" id="message" >
+        消息框：
+    </p>
+
+
+<span id="unlockMsg" style="width:75px;height: 5px;font-size: 10pt;
+font-weight: bolder;background-color:rgba(240,255,255,0.4);margin-left: 45%">
+    滑动以解锁
+    <script>
+        var slider = document.getElementById("myRange");
+        var unlockMsg = document.getElementById("unlockMsg");
+
+        slider.oninput = function() {
+            if(slider.value==100){
+                unlockMsg.innerHTML = "解锁成功!";
+                // var p = document.getElementById('message').textContent = "消息框:欢迎，新的访客";
+
+                fetch('/msg')
+                    .then(response=>{
+                        if(!response.ok)
+                            throw  new Error('msg missed!!!');
+                        window.location.reload();
+                    }).then(data =>{
+                        let hello_msg = document.getElementById('message');
+                        hello_msg.textContent = JSON.stringify(data['message']);
+                }).catch(error => console.error('Error:', error));
+            }
+        }
+
+
+    </script>
+</span>
+<input type="range" min="1" max="100" value="20" class="slider" id="myRange" style="margin-left: 45%">
+
+
+
+<br>
+<p>
+    <audio src="./audio/output.mp3" style="margin-left: 100px;margin-top: 100px" type="audio/mpeg" id="audio-source" controls>
+
+    </audio>
+    <progress id="progressBar" value="0" max="1" style="margin-left: 100px;margin-top: 150px;visibility: hidden"></progress>
+    <button id="player-audio" class="myButton">
+        <i class="fa fa-play" aria-hidden="true"></i>
+        播放音频
+    </button>
+    <button id="stop-audio" class="myButton">
+        <i class="fa fa-pause" aria-hidden="true"></i>
+        暂停音频
+    </button>
+    <button id="reload-audio" class="myButton">
+        <i class="fa fa-circle" aria-hidden="true"></i>
+        刷新音频
+    </button>
+    <script>
+        const audioSource = document.getElementById('audio-source');
+        const playerButton = document.getElementById('player-audio');
+        const stopButton = document.getElementById('stop-audio');
+        const reloadButton= document.getElementById('reload-audio');
+        const progressBar = document.getElementById('progressBar');
+
+
+        audioSource.addEventListener('timeupdate',function (){
+            if(audioSource.duration){
+                progressBar.value = audioSource.currentTime / audioSource.duration;
+            }
+        });
+        audioSource.addEventListener('ended', function() {
+            progressBar.value = 0;
+        });
+        playerButton.addEventListener('click',()=>{
+            audioSource.play();
+        });
+        stopButton.addEventListener('click',()=>{
+            audioSource.pause();
+        });
+        reloadButton.addEventListener('click',()=>{
+            audioSource.update();
+        });
+    </script>
+</p>
+
+<br>
+<br>
+<select style="text-align: center;font-size: 15pt;margin-right: 100px;color: skyblue;font-family: SimHei">
+    <option value="default">默认选项</option>
+    <option value="other">其他选项</option>
+</select>
+
+
+<p style="background: rgba(230,235,198,0.5);width:400px;height: 100px;column-count: 2;margin-left:10% ">
+    <button id="update" style="margin-left: 200px;font-size: 12pt;width: 120px">刷新这个界面</button>
+    <script>
+
+
+        const elementButton = document.getElementById('update');
+
+        elementButton.addEventListener('click',function () {
+            alert("成功刷新界面");
+            fetch('/refresh')
+                .then(response=>{
+                    if(!response.ok)
+                        throw  new Error('network response error cause not ok!!!');
+                }).catch(error => console.error('Error: ',error));
+
+
+        });
+
+    </script>
+</p>
+<script>window.onload = function (){
+    if(window.location=== '/comment'){
+        alert('消息接受成功')
+    }
+}</script>
+
+<form action="/comment" method="POST" style="margin-right: 50px">
+    <p style="width: 300px;height: 20px;text-emphasis-style: double-circle;margin-left: 70%">留言区: &#x2728 </p>
+    <input type="text" name="message" style="margin-left: 70%">
+    <button style="margin-left: 70%" type="submit">提交留言</button>
+</form>
+
+
+</body>
+</html>

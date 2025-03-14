@@ -1,0 +1,101 @@
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.code-box {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #333;
+}
+.box {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.myButton {
+    background-color: brown;
+    color: azure;
+    border-radius: 10px ;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+
+    text-decoration: none;
+    margin-top: 200px;
+    margin-bottom: 100px;
+}
+#player-audio{
+    margin-left: 80px;
+}
+#stop-audio{
+    margin-left: 150px;
+}
+#reload-audio{
+    margin-left: 230px;
+}
+#update{
+    background: springgreen;
+    color: brown;
+    width: 100px;
+}
+h1{
+    font-size: 40pt;
+    color: brown;
+    text-align: center;
+    border-width: 2px;
+    border-style: dot-dash;
+    border-color: gold;
+    padding: 20px;
+}
+p {
+    color: skyblue;  /* 文本颜色为蓝色 */
+    background-color: rgba(240,255,255,0.7);
+
+    border-width: 10px;
+    border-style: dot-dash;
+    border-color: gold;
+    box-shadow: 15px 15px 30px rgba(0,0,255,0.5);
+    padding: 30px;
+
+}
+@-webkit-keyframes  myAnimationFirst{
+    0% {background-color: azure;left: 50px; top: 10px;width: 200px;height: 10px}
+    33% {background-color: cyan;left: 250px; top: 110px;width: 200px;height: 10px}
+    66% {background-color: salmon;left: 450px; top: 10px;width: 200px;height: 10px}
+    100% {background-color: springgreen;left: 50px; top: 10px;width: 200px;height: 10px}
+}
+div{
+    width: 200px;
+    height: 10px;
+    resize: both;
+    position: relative;
+    background: cyan;
+    -webkit-animation-name: myAnimationFirst;
+    -webkit-animation-duration: 7s;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-iteration-count: 1;
+    z-index: 10;
+    /*-webkit-animation-direction: alternate;*/
+    /*-webkit-animation-play-state: running;*/
+
+}
+body {
+    font-family: SimSun,KaiTi,'Times New Roman'; /*设置字体为宋体 楷体和新罗马字体*/
+    font-size: 16px;
+    color: #a57340;
+    margin: 1pt;
+    padding: 1pt;
+    /*background-color: azure;*/
+
+    background-image: url('../img/bamboo.jpeg');  /* 背景图片 */
+    background-size: cover;
+    background-position: center;  /* 背景图片位置 */
+    background-repeat: no-repeat;  /* 背景图片不重复 */
+}
